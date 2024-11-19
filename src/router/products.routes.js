@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ProductManager } from "../managers/productManager.js";
+import { checkId } from "../middlewares/checkId.middleware.js";
 
 const productManager = new ProductManager();
 const router = Router();
@@ -15,17 +16,13 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:pid", async (req, res) => {
+router.get("/:pid",checkId, async (req, res) => {
+  
   const { pid } = req.params;
-  try {
-    const product = await productManager.getProductById(pid);
-
-    res.send(product);
-  } catch (error) {
-    console.log(error);
-    res.send(error.message);
-  }
-});
+  const product = await productManager.getProductById(pid);
+  res.send(product);
+  
+  });
 
 router.post("/", async (req, res) => {
   const body = req.body;
