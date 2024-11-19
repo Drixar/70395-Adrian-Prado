@@ -53,7 +53,6 @@ export class ProductManager {
   async getProductById(id) {
     await this.getProducts();
     const product = this.products.find((product) => product.id === id);
-    // if (!product) throw new Error(`No se encuentra el producto con el id ${id}`);
 
     return product;
   }

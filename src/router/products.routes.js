@@ -5,6 +5,8 @@ import { checkId } from "../middlewares/checkId.middleware.js";
 const productManager = new ProductManager();
 const router = Router();
 
+
+
 router.get("/", async (req, res) => {
   const { limit } = req.query;
   try {
