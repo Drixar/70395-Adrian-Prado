@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ProductManager } from "../managers/productManager.js";
 import { checkId } from "../middlewares/checkId.middleware.js";
 import { checkCode } from "../middlewares/checkCode.middleware.js";
+import { checkUndefined } from "../middlewares/checkUndefined.middleware.js";
 
 const productManager = new ProductManager();
 const router = Router();
@@ -28,7 +29,7 @@ router.get("/:pid",checkId, async (req, res) => {
   
   });
 
-router.post("/", checkCode, async (req, res) => {
+router.post("/", checkCode, checkUndefined, async (req, res) => {
 
   const body = req.body;
   const product = await productManager.addProduct(body);
@@ -37,31 +38,22 @@ router.post("/", checkCode, async (req, res) => {
   
 });
 
-router.put("/:pid", async (req, res) => {
+router.put("/:pid", checkId, checkUndefined, async (req, res) => {
+
   const { pid } = req.params;
   const body = req.body;
-  try {
-    console.log(pid);
-    console.log(body);
+
     const product = await productManager.updateProduct(pid, body);
 
     res.send(product);
-  } catch (error) {
-    console.log(error);
-    res.send(error.message);
-  }
 });
 
-router.delete("/:pid", async (req, res) => {
+router.delete("/:pid", checkId, async (req, res) => {
   const { pid } = req.params;
-  try {
-    const product = await productManager.deleteProduct(pid);
+  const product = await productManager.deleteProduct(pid);
+  console.log(product);
+  res.send(product);
 
-    res.send(product);
-  } catch (error) {
-    console.log(error);
-    res.send(error.message);
-  }
 });
 
 export default router;

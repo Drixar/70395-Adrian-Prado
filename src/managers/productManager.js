@@ -35,14 +35,6 @@ export class ProductManager {
       category,
     };
 
-    // Validar que el código ya existe
-    // const productExist = this.products.find((product) => product.code === code);
-    // if (productExist) throw new Error(`Ya existe un producto con el código ${code}`);
-
-    // Validar que todos los campos sean obligatorios
-    const validateProperties = Object.values(newProduct);
-    if (validateProperties.includes(undefined)) throw new Error("Todos los campos son obligatorios");
-
     this.products.push(newProduct);
 
     await fs.promises.writeFile(this.path, JSON.stringify(this.products));
