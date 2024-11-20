@@ -10,10 +10,10 @@ export const checkId = async (req, res, next) => {
       const error = new Error();
       error.message = `No se encuentra el producto con el id ${pid}`
       error.code = 404;
-      throw error;}
+      throw error;} else { next();}
   } catch (error) {
     console.log(`ERROR ${error.code} (${error.message})`);
-    res.status(error.code).send(`No se encuentra el producto con el id ${pid}`);
+    res.status(error.code).send(error.message);
   }
-  next();
+
 };

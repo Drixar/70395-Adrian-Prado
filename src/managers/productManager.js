@@ -36,8 +36,8 @@ export class ProductManager {
     };
 
     // Validar que el código ya existe
-    const productExist = this.products.find((product) => product.code === code);
-    if (productExist) throw new Error(`Ya existe un producto con el código ${code}`);
+    // const productExist = this.products.find((product) => product.code === code);
+    // if (productExist) throw new Error(`Ya existe un producto con el código ${code}`);
 
     // Validar que todos los campos sean obligatorios
     const validateProperties = Object.values(newProduct);
