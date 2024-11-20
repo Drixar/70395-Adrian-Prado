@@ -1,7 +1,7 @@
 import { ProductManager } from "../managers/productManager.js  "
 const productManager = new ProductManager();
 
-export const checkId = async (req, res, next) => {
+export const checkProductId = async (req, res, next) => {
   const { pid } = req.params;
   try {
     const products = await productManager.getProducts();

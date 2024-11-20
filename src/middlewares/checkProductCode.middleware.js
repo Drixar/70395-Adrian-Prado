@@ -1,7 +1,7 @@
 import { ProductManager } from "../managers/productManager.js  "
 const productManager = new ProductManager();
 
-export const checkCode = async (req, res, next) => {
+export const checkProductCode = async (req, res, next) => {
   const body = req.body;
   const { title, description, price, thumbnail, code, stock, category } = body;
   try {

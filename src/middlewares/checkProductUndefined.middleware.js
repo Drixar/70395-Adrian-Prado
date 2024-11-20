@@ -1,7 +1,7 @@
 // import { ProductManager } from "../managers/productManager.js  "
 // const productManager = new ProductManager();
 
-export const checkUndefined = async (req, res, next) => {
+export const checkProductUndefined = async (req, res, next) => {
   const body = req.body;
   const { title, description, price, thumbnail, code, stock, category } = body;
 
