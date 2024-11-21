@@ -3,6 +3,7 @@ import { ProductManager } from "../managers/productManager.js";
 import { checkProductId } from "../middlewares/checkProductId.middleware.js";
 import { checkProductCode } from "../middlewares/checkProductCode.middleware.js";
 import { checkProductUndefined } from "../middlewares/checkProductUndefined.middleware.js";
+import { checkUpdateProductCode } from "../middlewares/checkUpdateProductCode.middleware.js"
 
 const productManager = new ProductManager();
 const router = Router();
@@ -37,7 +38,7 @@ router.post("/", checkProductCode, checkProductUndefined, async (req, res) => {
   
 });
 
-router.put("/:pid", checkProductId, checkProductUndefined, async (req, res) => {
+router.put("/:pid", checkProductId, checkProductUndefined, checkUpdateProductCode, async (req, res) => {
 
   const { pid } = req.params;
   const body = req.body;
