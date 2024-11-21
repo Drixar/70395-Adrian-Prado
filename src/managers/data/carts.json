@@ -4,5 +4,10 @@
   { "id": "81ddf9e4-5f23-4fa5-807a-4d24fb7f5a7f", "products": [] },
   { "id": "5abe7922-1625-4ef5-880b-987cf8b5f01c", "products": [] },
   { "id": "9154084a-aabd-42db-a681-8748694f5e7a", "products": [] },
-  { "id": "33a32a14-8a88-4837-9e3f-8ada729592d2", "products": [] }
+  {
+    "id": "33a32a14-8a88-4837-9e3f-8ada729592d2",
+    "products": [
+      { "id": "2047d72d-e7bf-4cfb-a1ff-6d2de93898ea", "quantity": 2 }
+    ]
+  }
 ]

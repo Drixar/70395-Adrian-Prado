@@ -39,19 +39,26 @@ export class CartManager {
   }
 
   
-  async updateCart(id, data) {
-    await this.getProductById(id);
+  async updateCart(cid, pid) {
+    await this.getCartById(cid);
 
-    const index = this.carts.findIndex((cart) => cart.id === id);
+    const index = this.carts.findIndex((cart) => cart.id === cid);
+    const productFound = this.carts[index].products.find((product) => product.id === pid);
+    if (!productFound) {
+      const newProduct = {
+        id: pid,
+        quantity: 1
+      }
+      this.carts[index].products.push(newProduct);  
+    } else {
+      const pIndex = this.carts[index].products.findIndex((product) => product.id === pid);
+      this.carts[index].products[pIndex].quantity += 1;  
+    }
 
-    this.products[index] = {
-      ...this.products[index],
-      ...data,
-    };
+    await fs.promises.writeFile(this.path, JSON.stringify(this.carts));
+    console.log(productFound);
 
-    await fs.promises.writeFile(this.path, JSON.stringify(this.products));
-
-    return this.products[index];
+    return this.carts[index];
   }
 
   async deleteProduct(id) {

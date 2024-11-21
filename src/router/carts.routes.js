@@ -1,39 +1,38 @@
-import { Router } from "express";
-import { CartManager } from "../managers/cartManager.js";
-import { checkCartId } from "../middlewares/checkCartId.middleware.js";
+import { Router } from 'express';
+import { CartManager } from '../managers/cartManager.js';
+import { checkCartId } from '../middlewares/checkCartId.middleware.js';
 
 const cartManager = new CartManager();
 const router = Router();
 
+router.get('/', async (req, res) => {
+  const { limit } = req.query;
+  try {
+    const carts = await cartManager.getCarts(limit);
+    res.send(carts);
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+});
 
-router.get("/", async (req, res) => {
+router.get('/:cid', checkCartId, async (req, res) => {
+  const { cid } = req.params;
+  const cart = await cartManager.getCartById(cid);
+  console.log(cart);
+  res.send(cart);
+});
 
-    const { limit } = req.query;
-    try {
-      const carts = await cartManager.getCarts(limit);
-      res.send(carts);
-    } catch (error) {
-      console.log(error);
-      res.send(error.message);}
-  
-  });
+router.post('/', async (req, res) => {
+  const cart = await cartManager.addCart();
+  console.log(cart);
+  res.send(cart);
+});
 
-  router.get("/:cid", checkCartId, async (req, res) => {
-  
-    const { cid } = req.params;
-    const cart = await cartManager.getCartById(cid);
-    console.log(cart)
-    res.send(cart);
-    
-    });
-
-router.post("/", async (req, res) => {
-
-    const cart = await cartManager.addCart();
-    console.log(cart)
-    res.send(cart);
-    
-  });
-
+router.post('/:cid/product/:pid', checkCartId, async (req, res) => {
+  const { cid, pid } = req.params;
+  const cart = await cartManager.updateCart(cid, pid);
+  res.send(cart);
+});
 
 export default router;
