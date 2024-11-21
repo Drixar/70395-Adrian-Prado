@@ -61,13 +61,13 @@ export class CartManager {
     return this.carts[index];
   }
 
-  async deleteProduct(id) {
-    await this.getProductById(id);
+  async deleteCart(id) {
+    await this.getCartById(id);
 
-    this.products = this.products.filter((products) => products.id !== id);
+    this.carts = this.carts.filter((cart) => cart.id !== id);
 
-    await fs.promises.writeFile(this.path, JSON.stringify(this.products));
+    await fs.promises.writeFile(this.path, JSON.stringify(this.carts));
 
-    return `Producto con el id ${id} eliminado`;
+    return `Carrito con el id ${id} ha sido eliminado`;
   }
 }

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { CartManager } from '../managers/cartManager.js';
 import { checkCartId } from '../middlewares/checkCartId.middleware.js';
+import { checkCartProductId } from '../middlewares/checkCartProductId.middleware.js';
 
 const cartManager = new CartManager();
 const router = Router();
@@ -29,10 +30,19 @@ router.post('/', async (req, res) => {
   res.send(cart);
 });
 
-router.post('/:cid/product/:pid', checkCartId, async (req, res) => {
+router.post('/:cid/product/:pid', checkCartId, checkCartProductId, async (req, res) => {
   const { cid, pid } = req.params;
   const cart = await cartManager.updateCart(cid, pid);
   res.send(cart);
 });
+
+router.delete("/:cid", checkCartId, async (req, res) => {
+
+    const { cid } = req.params;
+    const cart = await cartManager.deleteCart(cid);
+    console.log(cart);
+    res.send(cart);
+  
+  });
 
 export default router;
