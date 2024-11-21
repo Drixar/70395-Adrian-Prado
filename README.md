@@ -107,7 +107,8 @@ En el ejemplo se actualizará el producto con el ID b76f5ae5-8d02-498b-b759-bd79
 
 #### Antes de Actualizar un producto a la base de datos:
 El middleware checkProductId, verifica que el ID del producto, que se quiere modificar, exista en la base de datos.
-El MIddleware checkProductUndefined verifica que todos los campos existan 
+El middleware checkProductUndefined verifica que todos los campos existan 
+el middleware checkUpdateProductCode verifica que no exista otro producto en la base de datos con el código (code), que se quiere utilizar para actualizar el producto identificado con el ID pid.
 
 ### La ruta DELETE/
 
